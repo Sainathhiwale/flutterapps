@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Home page'),
+      home: MyHomePage(title: 'Home pages'),
     );
   }
 }
@@ -24,15 +24,13 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(this.title),
-      ),
-      body: Center(
-          child:
-          Text(
-            'Hello World',
-          )
-      ),
-    );
+        title: Text(this.title),),
+      body: const Center(
+          child:Image(
+    image: AssetImage('assets/icon.png'))
+    ));
   }
 }
+
+
 
