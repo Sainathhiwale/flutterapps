@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Home page'),
+      home: MyHomePage(title: 'Home pages'),
     );
   }
 }
@@ -35,4 +35,6 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
+
+
 
