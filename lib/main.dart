@@ -1,54 +1,19 @@
 import 'package:flutter/material.dart';
-
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
+import 'package:flutterapps/Screen/spash_screen.dart';
+void main() {
+  runApp(const MyApp());
 }
 
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-
-class _MyAppState extends State<MyApp> {
-  Icon fab = Icon(
-    Icons.refresh,
-  );
-
-  bool showProgress = true;
-
-  void toggleSubmitState() {
-    setState(() {
-      showProgress = !showProgress;
-    });
-  }
-
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: new Text("Flutter - tutorialkart.com"),
-      ),
-      body: Center(
-          child: showProgress
-              ? CircularProgressIndicator()
-              : Text('Click on Refreseh button below', style: TextStyle(fontSize: 20),)),
-      floatingActionButton: FloatingActionButton(
-        child: fab,
-        onPressed: () => setState(() {
-          showProgress = !showProgress;
-          if (showProgress) {
-            fab = Icon(
-              Icons.stop,
-            );
-          } else {
-            fab = Icon(Icons.refresh);
-          }
-        }),
-      ),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MySplashScreen(),
     );
   }
+
 }
-
-
-
