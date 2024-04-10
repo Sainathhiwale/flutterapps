@@ -11,18 +11,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: ListView(
-          children: [
-            Stack(
-              children: [
-               Profile(),
-                MyAppBar(),
-              ],
-            )
-          ],
+      home: SafeArea(
+        child: Scaffold(
+          body: ListView(
+            children: [
+              Stack(
+                children: [
+                  Profile(),
+                  MyAppBar(),
+                ],
+              )
+            ],
+          ),
         ),
       ),
-    );
+      );
+
   }
 }
