@@ -8,10 +8,10 @@ class Profile extends StatelessWidget {
       padding: EdgeInsets.only(top: 170),
       width: double.infinity,
       height: 350,
-      decoration:  BoxDecoration(
+      decoration:  const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(80.0))),
-      child:  Column(
+      child:  const Column(
         children: [
           CircleAvatar(),
           SizedBox(
