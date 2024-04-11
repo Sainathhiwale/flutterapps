@@ -17,3 +17,5 @@ const TextStyle countText =
     TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0);
 const TextStyle followText =
     TextStyle(fontWeight: FontWeight.w400, fontSize: 14.0, color: Colors.grey);
+
+const TextStyle postText = TextStyle(color: Colors.green, fontSize: 15.0);

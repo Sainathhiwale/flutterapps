@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapps/myPost.dart';
 import 'package:flutterapps/myappbar.dart';
 import 'package:flutterapps/profile.dart';
 void main(){
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
             children: [
               Stack(
                 children: [
+                  MyPosts(),
                   Profile(),
                   MyAppBar(),
                 ],
