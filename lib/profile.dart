@@ -56,11 +56,11 @@ class Profile extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    "121",
+                    "75",
                     style: countText,
                   ),
                   Text(
-                    "posts",
+                    "Like",
                     style: followText,
                   ),
                 ],
@@ -71,11 +71,11 @@ class Profile extends StatelessWidget {
               Column(
                 children: [
                   Text(
-                    "121",
+                    "24",
                     style: countText,
                   ),
                   Text(
-                    "posts",
+                    "Follow",
                     style: followText,
                   ),
                 ],
