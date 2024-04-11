@@ -22,6 +22,6 @@ https://github.com/Sainathhiwale/flutterapps/blob/flutter_login_registar_app/ima
 
 ## The User Profile design is created 
 -https://github.com/Sainathhiwale/flutterapps/tree/flutter_profile_app
-<img width="956" alt="image" src="https://github.com/Sainathhiwale/flutterapps/assets/24228143/410df9a5-c001-4ce8-9732-c25c5424b08a">
+<img width="958" alt="image" src="https://github.com/Sainathhiwale/flutterapps/assets/24228143/9339f85f-2aaa-468b-a8fa-be2ffb87f2da">
 
 
