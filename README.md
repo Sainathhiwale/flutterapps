@@ -24,4 +24,13 @@ https://github.com/Sainathhiwale/flutterapps/blob/flutter_login_registar_app/ima
 -https://github.com/Sainathhiwale/flutterapps/tree/flutter_profile_app
 <img width="958" alt="image" src="https://github.com/Sainathhiwale/flutterapps/assets/24228143/9339f85f-2aaa-468b-a8fa-be2ffb87f2da">
 
+## Tab controller design demo is created in below branch 
+- Tab controller tutorials
+- https://github.com/Sainathhiwale/flutterapps/tree/flutter_tab_controller
+  
+- <img width="955" alt="image" src="https://github.com/Sainathhiwale/flutterapps/assets/24228143/f02e2e31-63c6-45b7-a190-f92b2eee372e">
+
+
+
+
 
