@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterapps/Screen/second_route.dart';
+import 'package:flutterapps/Screen/todo_screen.dart';
+import 'package:flutterapps/model/todo.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -10,41 +10,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Navigation Basics',
-      home: FirstRoute(),
-    );
-  }
-}
-class FirstRoute extends StatelessWidget {
-  const FirstRoute({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
-        middle: Text("First Route"),
-      ),
-      child: Center(
-        child: CupertinoButton(
-          onPressed: () {
-            // Navigate to second route when tapped.
-            Navigator.push(
-              context,
-              CupertinoPageRoute(builder: (context) => const SecondRoute()),
-            );
-          },
-          child: const Text("Open Route"),
+      title: 'Passing Data',
+      home: TodosScreen(
+        todos: List.generate(
+          20,
+              (i) =>
+              Todo(
+                'Todo $i',
+                'A description of what needs to be done for Todo $i',
+              ),
         ),
       ),
     );
   }
 }
-
-
-
-
 
 
 
