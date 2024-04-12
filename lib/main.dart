@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapps/Screen/todo_screen.dart';
-import 'package:flutterapps/model/todo.dart';
+import 'package:flutterapps/Screen/selection_button.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -10,18 +10,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Passing Data',
-      home: TodosScreen(
-        todos: List.generate(
-          20,
-              (i) =>
-              Todo(
-                'Todo $i',
-                'A description of what needs to be done for Todo $i',
-              ),
-        ),
+      title: 'Returning Data',
+      home: HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Returning Data Demo"),
+      ),
+      // Create the SelectionButton widget in the next step.
+      body:  Center(
+        child: SelectionButton(),
       ),
     );
   }
