@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapps/Screen/dashboard_screen.dart';
+import 'package:flutterapps/Screen/school_screen.dart';
+import 'package:flutterapps/Screen/business_screen.dart';
+import 'package:flutterapps/Screen/profile_screen.dart';
+import 'package:flutterapps/Screen/share_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
       style: optionStyle,
     ),
     Text(
-      "Index 1 Business",
+      "Index 1 Business ",
       style: optionStyle,
     ),
     Text(
@@ -55,6 +60,30 @@ class _HomeScreenState extends State<HomeScreen> {
    void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+
+    switch(index){
+      case 0:
+        Navigator.push(context,
+          MaterialPageRoute(builder: (context) => DashboardScreen()),
+        );
+        break;
+      case 1:
+        Navigator.push(context,
+          MaterialPageRoute(builder: (context) => BusinessScreen()),
+        );
+        break;
+      case 2:
+        Navigator.push(context,
+          MaterialPageRoute(builder: (context) => SchoolScreen()),
+        );
+        break;
+      case 3:
+        Navigator.push(context,
+          MaterialPageRoute(builder: (context) => ProfileScreen()),
+        );
+        break;
+
+    }
     });
    }
 
@@ -82,6 +111,9 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: () {
                 _onItemTapped(0);
                Navigator.pop(context);
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => DashboardScreen()),
+                );
               },
             ),
             Divider(),
@@ -89,7 +121,10 @@ class _HomeScreenState extends State<HomeScreen> {
               title: const Text("Business"),
               onTap: () {
                 _onItemTapped(1);
-              Navigator.pop(context);
+               Navigator.pop(context);
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => BusinessScreen()),
+                );
               },
             ),
            Divider(),
@@ -98,6 +133,9 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: (){
                 _onItemTapped(2);
                 Navigator.pop(context);
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SchoolScreen()),
+                );
               },
             ),
           Divider(),
@@ -106,6 +144,9 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: (){
                 _onItemTapped(3);
                 Navigator.pop(context);
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ProfileScreen()),
+                );
               },
             ),
           Divider(),
@@ -114,6 +155,9 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: (){
                 _onItemTapped(4);
                 Navigator.pop(context);
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ShareScreen()),
+                );
               },
             ),
          Divider(),
