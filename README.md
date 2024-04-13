@@ -30,6 +30,13 @@ https://github.com/Sainathhiwale/flutterapps/blob/flutter_login_registar_app/ima
   
 - <img width="955" alt="image" src="https://github.com/Sainathhiwale/flutterapps/assets/24228143/f02e2e31-63c6-45b7-a190-f92b2eee372e">
 
+## Add a drawer to a screen demo is created in below branch.
+- Drawer Navigation tutorials
+- https://github.com/Sainathhiwale/flutterapps/tree/flutter_add_drawer_to_screen
+
+  <img width="960" alt="image" src="https://github.com/Sainathhiwale/flutterapps/assets/24228143/23edbd4b-a0b4-4e19-8d17-adf5a793a4ba">
+
+
 
 
 
