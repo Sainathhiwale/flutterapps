@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _selectedIndex = index;
 
-    switch(index){
+    /*switch(index){
       case 0:
         Navigator.push(context,
           MaterialPageRoute(builder: (context) => DashboardScreen()),
@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
         );
         break;
 
-    }
+    }*/
     });
    }
 
