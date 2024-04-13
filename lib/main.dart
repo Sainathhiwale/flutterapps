@@ -6,30 +6,35 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  static const appTitle = 'Network Image ';
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: MyApp.appTitle,
-      home: ImageScreen(),
-    );
-  }
-}
 
-class ImageScreen extends StatelessWidget {
-  const ImageScreen ({super.key});
+  get kTransparentImage => null;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Network Image"),
+    const title = 'Fade in images';
+
+    return MaterialApp(
+      title: title,
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text(title),
+        ),
+        body: Stack(
+          children: <Widget>[
+            const Center(child: CircularProgressIndicator()),
+            Center(
+              child: FadeInImage.memoryNetwork(
+                placeholder: kTransparentImage,
+                image: 'https://picsum.photos/250?image=9',
+              ),
+            ),
+          ],
+        ),
       ),
-      body: Image.network("https://picsum.photos/250?image=9"),
     );
   }
 }
+
 
 
 
