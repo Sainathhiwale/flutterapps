@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapps/Screen/selection_button.dart';
 
 void main() {
   runApp(const MyApp());
@@ -85,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                Navigator.pop(context);
               },
             ),
-            Divider();
+            Divider(),
             ListTile(
               title: const Text("Business"),
               onTap: () {
@@ -93,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.pop(context);
               },
             ),
-           Divider();
+           Divider(),
             ListTile(
               title: const Text("School"),
               onTap: (){
@@ -101,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.pop(context);
               },
             ),
-          Divider();
+          Divider(),
             ListTile(
               title: const Text("Profile"),
               onTap: (){
@@ -109,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.pop(context);
               },
             ),
-          Divider();
+          Divider(),
             ListTile(
               title: const Text("Share"),
               onTap: (){
@@ -117,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.pop(context);
               },
             ),
-         Divider();
+         Divider(),
           ],
         ),
       ),
