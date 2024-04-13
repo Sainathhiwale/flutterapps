@@ -36,6 +36,11 @@ https://github.com/Sainathhiwale/flutterapps/blob/flutter_login_registar_app/ima
 
   <img width="960" alt="image" src="https://github.com/Sainathhiwale/flutterapps/assets/24228143/23edbd4b-a0b4-4e19-8d17-adf5a793a4ba">
 
+- Get Navigate to drawer menu to selected tab through the MaterialPageRoute and Navigator push method.
+
+
+  <img width="958" alt="image" src="https://github.com/Sainathhiwale/flutterapps/assets/24228143/bf6f3115-80cb-46bf-927a-97662cb1cf28">
+
 
 
 
