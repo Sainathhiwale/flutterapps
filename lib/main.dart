@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,32 +13,59 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const title = 'Fade in images';
-
+    const appTitle = 'Form Styling Demo';
     return MaterialApp(
-      title: title,
+      debugShowCheckedModeBanner: false,
+      title: appTitle,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text(title),
+          title: const Text(appTitle),
         ),
-        body: Stack(
-          children: <Widget>[
-            const Center(child: CircularProgressIndicator()),
-            Center(
-              child: FadeInImage.memoryNetwork(
-                placeholder: kTransparentImage,
-                image: 'https://picsum.photos/250?image=9',
-              ),
-            ),
-          ],
-        ),
+        body: const MyCustomForm(),
       ),
     );
   }
 }
 
+class MyCustomForm extends StatelessWidget {
+  const MyCustomForm({super.key});
 
-
-
-
-
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          child: TextField(
+            decoration: InputDecoration(
+                border: OutlineInputBorder(), hintText: 'enter a name '),
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          child: TextField(
+            decoration: InputDecoration(
+                border: OutlineInputBorder(), hintText: 'enter password'),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            width: double.infinity,
+          child: ElevatedButton(
+            onPressed: () {
+              // Show a Snackbar
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Data is saved Successfully!"),
+                ),
+              );
+              },
+            child: Text('Login'),
+          ),
+        ),
+        ),
+      ],
+    );
+  }
+}
