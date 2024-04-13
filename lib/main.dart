@@ -85,6 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                Navigator.pop(context);
               },
             ),
+            Divider();
             ListTile(
               title: const Text("Business"),
               onTap: () {
@@ -92,6 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.pop(context);
               },
             ),
+           Divider();
             ListTile(
               title: const Text("School"),
               onTap: (){
@@ -99,6 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.pop(context);
               },
             ),
+          Divider();
             ListTile(
               title: const Text("Profile"),
               onTap: (){
@@ -106,6 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.pop(context);
               },
             ),
+          Divider();
             ListTile(
               title: const Text("Share"),
               onTap: (){
@@ -113,6 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.pop(context);
               },
             ),
+         Divider();
           ],
         ),
       ),
