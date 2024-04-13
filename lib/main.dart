@@ -6,123 +6,31 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  static const appTitle = 'Drawer Demo';
+  static const appTitle = 'Network Image ';
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: appTitle,
-      home: HomeScreen(title:appTitle),
+      title: MyApp.appTitle,
+      home: ImageScreen(),
     );
   }
 }
-class HomeScreen extends StatefulWidget {
-  final String title;
-  const HomeScreen({super.key, required  this.title});
+
+class ImageScreen extends StatelessWidget {
+  const ImageScreen ({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-   int _selectedIndex =0;
-   static const TextStyle optionStyle =
-   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      "Index 0 Home",
-      style: optionStyle,
-    ),
-    Text(
-      "Index 1 Business",
-      style: optionStyle,
-    ),
-    Text(
-      "Index 2 School",
-      style: optionStyle,
-    ),
-    Text(
-      "Index 3 User Profile",
-      style: optionStyle,
-    ),
-    Text(
-      "Index 4 Share",
-      style: optionStyle,
-    ),
-  ];
-
-   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-   }
-
-   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("Network Image"),
       ),
-      body: Center(
-        child: _widgetOptions[_selectedIndex],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ), child: Text("Drawer Header"),
-            ),
-            ListTile(
-              title: const Text("Home"),
-              onTap: () {
-                _onItemTapped(0);
-               Navigator.pop(context);
-              },
-            ),
-            Divider(),
-            ListTile(
-              title: const Text("Business"),
-              onTap: () {
-                _onItemTapped(1);
-              Navigator.pop(context);
-              },
-            ),
-           Divider(),
-            ListTile(
-              title: const Text("School"),
-              onTap: (){
-                _onItemTapped(2);
-                Navigator.pop(context);
-              },
-            ),
-          Divider(),
-            ListTile(
-              title: const Text("Profile"),
-              onTap: (){
-                _onItemTapped(3);
-                Navigator.pop(context);
-              },
-            ),
-          Divider(),
-            ListTile(
-              title: const Text("Share"),
-              onTap: (){
-                _onItemTapped(4);
-                Navigator.pop(context);
-              },
-            ),
-         Divider(),
-          ],
-        ),
-      ),
+      body: Image.network("https://picsum.photos/250?image=9"),
     );
   }
 }
+
 
 
 
