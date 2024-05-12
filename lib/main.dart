@@ -1,6 +1,6 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
+import 'package:flutterapps/db/databaseHelper.dart';
+import 'package:flutterapps/model/car.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,139 +9,121 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-    const appTitle = 'TextEditingController Form Styling Demo';
     return MaterialApp(
+      title: "Examen Flutter Database",
       debugShowCheckedModeBanner: false,
-      title: appTitle,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text(appTitle),
-        ),
-        body: const MyCustomForm(),
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
       ),
+      home: MyHomePage(),
     );
   }
 }
 
-class MyCustomForm extends StatefulWidget {
-  const MyCustomForm({super.key});
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
 
   @override
-  State<MyCustomForm> createState() => _MyCustomFormState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyCustomFormState extends State<MyCustomForm> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class _MyHomePageState extends State<MyHomePage> {
+  final dbHelper = DatabaseHelper.instance;
+  List<Car> cars = [];
+  List<Car> carsByName = [];
 
-  @override
-  void dispose() {
-    // Clean up the controllers when the widget is disposed
-    emailController.dispose();
-    passwordController.dispose();
-    // TODO: implement dispose
-    super.dispose();
+  //controllers used in insert operation UI
+  TextEditingController nameController = TextEditingController();
+  TextEditingController milesController = TextEditingController();
+
+ //controllers used in update operation UI
+  TextEditingController idUpdateController = TextEditingController();
+  TextEditingController nameUpdateController = TextEditingController();
+  TextEditingController milesUpdateController = TextEditingController();
+
+  //controllers used in delete operation UI
+  TextEditingController idDeleteController = TextEditingController();
+
+  //controllers used in query operation UI
+  TextEditingController queryController = TextEditingController();
+
+  final GlobalKey<ScaffoldMessengerState> _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
+
+  void _showMessageInScaffold(String message) {
+    _scaffoldKey.currentState?.showSnackBar(
+        SnackBar(
+          content: Text(message),
+        )
+    );
   }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-            child: TextField(
-              controller: emailController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Email',
-              ),
+    return DefaultTabController(length: 5,
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: const TabBar(
+              tabs: [
+                Tab( text: "Insert",),
+                Tab( text: "View",),
+                Tab( text: "Query",),
+                Tab( text: "Update",),
+                Tab( text: "Delete",),
+              ],
             ),
-            ),
-            Padding(padding:
-            EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-            child: TextField(
-              controller: passwordController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Password',
-              ),
-              obscureText: true,
-            ),
-            ),
-            Padding(padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              width: double.infinity,
-              child:ElevatedButton(
-                onPressed: () {
-                  String email = emailController.text;
-                  String password = passwordController.text;
-                  // Show a Snackbar
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Data saved:  Email: $email, Password: $password'),
+            title: Text('Examen - Flutter SQLite example'),
+          ),
+          body: TabBarView(
+            children: [
+              Center(
+                child: Column(
+                  children:<Widget> [
+                   Container(
+                     padding: EdgeInsets.all(15),
+                     child: TextField(
+                       controller: nameController,
+                       decoration: InputDecoration(
+                         border: OutlineInputBorder(),
+                         labelText: 'Car Name',
+                       ),
+                     ),
+                   ),
+                    Container(
+                      padding: EdgeInsets.all(15),
+                      child: TextField(
+                        controller: milesController,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: "Car Miles"
+                        ),
+                      ),
                     ),
-                  );
-                },
-                child: Text('Save'),
-              ),
-            ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
-/*
-class MyCustomForm extends StatelessWidget {
-  const MyCustomForm({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: TextField(
-            decoration: InputDecoration(
-                border: OutlineInputBorder(), hintText: 'enter a name '),
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: TextField(
-            decoration: InputDecoration(
-                border: OutlineInputBorder(), hintText: 'enter password'),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            width: double.infinity,
-          child: ElevatedButton(
-            onPressed: () {
-              // Show a Snackbar
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Data is saved Successfully!"),
+                    ElevatedButton(
+                      child: Text('Insert Car Details'),
+                      onPressed: () {
+                        String name = nameController.text;
+                        int miles = int.parse(milesController.text);
+                        _insert(name, miles);
+                      },
+                    ),
+                  ],
                 ),
-              );
-              },
-            child: Text('Login'),
+              )
+            ],
           ),
         ),
-        ),
-      ],
     );
   }
+
+  void _insert(name,miles) async{
+    // row to insert
+    Map<String, dynamic> row = {
+      DatabaseHelper.columnName:name,
+      DatabaseHelper.columnMiles:miles
+    };
+    Car car = Car.fromMap(row);
+    final id = await dbHelper.insert(car);
+    _showMessageInScaffold('inserted row id: $id');
+  }
 }
-*/
