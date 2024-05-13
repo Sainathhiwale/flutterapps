@@ -12,8 +12,8 @@ class LoginRepository{
     if (user != null && user.password == password) {
       return user;
     } else {
-    User user = User(id: id, username: username, password: password);
-      register(user);
+    /* User user = User(id: id, username: username, password: password);
+      register(user);*/
       return null;
     }
   }

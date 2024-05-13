@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapps/Utils/app_log.dart';
 import 'package:flutterapps/domain_layer/database_helper.dart';
 import 'package:flutterapps/domain_layer/login_repository.dart';
-
+import 'package:flutterapps/presentation_layer/register_screen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -115,6 +117,14 @@ class _LoginPageUIState extends State<LoginPageUI> {
                       )),
                 ),
                 Padding(padding: const EdgeInsets.fromLTRB(0, 20, 0, 0)),
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: ElevatedButton(
+                    onPressed: _handleRegister,
+                    child: new Text("Sign Up",
+                    style: TextStyle(color: Colors.white, fontSize: 20.0),),
+                  ),
+                ),
               ],
             ),
           ),
@@ -128,43 +138,28 @@ class _LoginPageUIState extends State<LoginPageUI> {
     int index =0;
     final user = await loginRepository.login(index,username, password);
     if (user != null) {
+      AppLog().d("login", 'user is found');
       // Login successful, navigate or handle success
     } else {
-      // Login failed, show error message
+      AppLog().d("login", 'user is not found');
+      Fluttertoast.showToast(msg: "User does not exits Please Sign up..",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
     }
 
   }
-  void showAlert() {
-    print("D");
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          // Retrieve the text the user has typed in using our
-          // TextEditingController
-          title:  Text("Login Screen"),
-          content:  Text("Email :" +
-              usernameController.text +
-              "\nPassword : " +
-              passwordController .text),
-          actions: <Widget>[
-            TextButton(
-                child: Text('Cancel'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                }),
-            TextButton(
-                child: Text('Ok'),
-                onPressed: () {
-                  usernameController.clear();
-                  passwordController .clear();
-                  Navigator.of(context).pop();
-                })
-          ],
-        );
-      },
+
+
+
+  // navigate to sign up screen
+  void _handleRegister() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => RegisterScreen()),
     );
   }
-
-
 }

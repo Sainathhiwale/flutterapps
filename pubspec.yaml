@@ -37,7 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   sqflite: ^2.0.0+4  # Example version constraint
   path: ^1.8.0  # Example version constraint
-
+  fluttertoast: ^8.2.5  # Replace with the latest version if needed
 dev_dependencies:
   flutter_test:
     sdk: flutter
