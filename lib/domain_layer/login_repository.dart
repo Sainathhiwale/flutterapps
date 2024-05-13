@@ -21,5 +21,8 @@ class LoginRepository{
   Future<void> register(User user) async {
     await databaseHelper.insertUser(user);
   }
+  Future<User?>getUserDetails(String username, String email) async{
+    final user = await databaseHelper.getUser(username);
+  }
 
 }

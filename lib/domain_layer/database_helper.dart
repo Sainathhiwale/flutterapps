@@ -51,12 +51,15 @@ class DatabaseHelper {
   }
 }
 
+
+
 extension UserExtension on User {
   Map<String, dynamic> toMap() => {'username': username, 'password': password};
 
   static User fromMap(Map<String, dynamic> map) => User(
         id: map['id'] as int,
         username: map['username'] as String,
+      useremail: map['useremail'] as String,
         password: map['password'] as String,
       );
 }
