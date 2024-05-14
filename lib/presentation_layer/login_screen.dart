@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterapps/Utils/app_log.dart';
 import 'package:flutterapps/domain_layer/database_helper.dart';
 import 'package:flutterapps/domain_layer/login_repository.dart';
+import 'package:flutterapps/presentation_layer/home/home_screen.dart';
 import 'package:flutterapps/presentation_layer/register_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 class LoginScreen extends StatefulWidget {
@@ -142,6 +143,9 @@ class _LoginPageUIState extends State<LoginPageUI> {
       print(user.id);
       AppLog().d("login", 'user is found');
       // Login successful, navigate home screen
+      Navigator.push(context,
+      MaterialPageRoute(builder: (context) => Home()),
+      );
     } else {
       AppLog().d("login", 'user is not found');
       Fluttertoast.showToast(msg: "UInvalid username or password.",

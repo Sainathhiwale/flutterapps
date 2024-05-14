@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterapps/domain_layer/database_helper.dart';
 import 'package:flutterapps/domain_layer/login_repository.dart';
 import 'package:flutterapps/models/user.dart';
+import 'package:flutterapps/presentation_layer/login_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -192,6 +193,7 @@ class _SignUpPageUIState extends State<SignUpPageUI> {
           content: const Text("Registered Successfully"),
         ),
       );
+      navigateLogin();
     } else{
       Fluttertoast.showToast(msg: "Error registering user.",
         toastLength: Toast.LENGTH_SHORT,
@@ -203,7 +205,14 @@ class _SignUpPageUIState extends State<SignUpPageUI> {
     }
 
   }
+  void navigateLogin() {
+    Navigator.push(context, 
+    MaterialPageRoute(builder: (context)=> LoginScreen()),
+    );
+  }
 }
+
+
 
 
 
