@@ -35,7 +35,7 @@ class _LoginPageUIState extends State<LoginPageUI> {
   late BuildContext context;
   final FocusNode _passwordFocusNode = new FocusNode();
 
-  final usernameController = TextEditingController();
+  final useremailController = TextEditingController();
   final passwordController = TextEditingController();
   final loginRepository = LoginRepository(databaseHelper: DatabaseHelper());
 
@@ -75,7 +75,7 @@ class _LoginPageUIState extends State<LoginPageUI> {
                         FocusScope.of(context).requestFocus(_passwordFocusNode);
                       },
                       autofocus: true,
-                      controller: usernameController,
+                      controller: useremailController,
                       keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       decoration:
@@ -133,16 +133,18 @@ class _LoginPageUIState extends State<LoginPageUI> {
     );
   }
   Future<void> _handleLogin() async {
-    final username = usernameController.text;
+    final useremail = useremailController.text;
     final password = passwordController.text;
-    int index =0;
-    final user = await loginRepository.login(index,username, password);
+    final user = await loginRepository.login(useremail, password);
     if (user != null) {
+      print(user.useremail);
+      print(user.password);
+      print(user.id);
       AppLog().d("login", 'user is found');
-      // Login successful, navigate or handle success
+      // Login successful, navigate home screen
     } else {
       AppLog().d("login", 'user is not found');
-      Fluttertoast.showToast(msg: "User does not exits Please Sign up..",
+      Fluttertoast.showToast(msg: "UInvalid username or password.",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.grey,

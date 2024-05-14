@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapps/domain_layer/database_helper.dart';
 import 'package:flutterapps/domain_layer/login_repository.dart';
+import 'package:flutterapps/models/user.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -80,10 +82,7 @@ class _SignUpPageUIState extends State<SignUpPageUI> {
                 validator: (String? value){
                   if(value == null || value.isEmpty){
                     return 'Please Enter User Name!';
-                  }else{
-                    return "Username is already registered.";
                   }
-                  return null;
                 },
                 onEditingComplete: ()=>_focusNodeEmail.requestFocus(),
               ),
@@ -145,11 +144,66 @@ class _SignUpPageUIState extends State<SignUpPageUI> {
                   return null;
                 },
               ),
+              const SizedBox(height: 50),
+              Column(
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        minimumSize: const Size.fromHeight(50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                    ),
+                    onPressed: (){
+                     if(_formKey.currentState?.validate()??false){
+                        _handledRegister();
+                     }
+                    },
+                    child: const Text("Register"),
+                  ),
+                ],
+              )
             ],
           ),
          ),
         )
     );
   }
+  Future<void> _handledRegister() async {
+    int index =0;
+    final username = _controllerUsername.text;
+    final useremail = _controllerEmail.text;
+    final password = _controllerPassword.text;
+    User user =  User(id: index, username: username, useremail: useremail, password: password);
+    final userinfo = await loginRepository.register(user);
+    if(userinfo !=null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          width: 200,
+          backgroundColor:
+          Theme
+              .of(context)
+              .colorScheme
+              .secondary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          behavior: SnackBarBehavior.floating,
+          content: const Text("Registered Successfully"),
+        ),
+      );
+    } else{
+      Fluttertoast.showToast(msg: "Error registering user.",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.grey,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+    }
+
+  }
 }
+
+
 

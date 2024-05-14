@@ -1,4 +1,5 @@
 
+import 'package:flutterapps/Utils/login_error.dart';
 import 'package:flutterapps/domain_layer/database_helper.dart';
 import 'package:flutterapps/models/user.dart';
 
@@ -7,22 +8,21 @@ class LoginRepository{
 
   LoginRepository({required this.databaseHelper});
 
-  Future<User?> login(int id, String username, String password) async {
-    final user = await databaseHelper.getUser(username);
-    if (user != null && user.password == password) {
-      return user;
-    } else {
-    /* User user = User(id: id, username: username, password: password);
-      register(user);*/
-      return null;
+  Future<User?> login(String useremail, String password) async {
+    final user = await databaseHelper.getUser(useremail, password);
+    if (user == null) {
+      throw LoginError('Invalid username or password.');  // Throw a custom exception
     }
+    return user;
   }
 
-  Future<void> register(User user) async {
-    await databaseHelper.insertUser(user);
+  Future<int?> register(User user) async {
+    final userId = await databaseHelper.insertUser(user);
+    return userId;
+
   }
-  Future<User?>getUserDetails(String username, String email) async{
+  /*Future<User?>getUserDetails(String username, String email) async{
     final user = await databaseHelper.getUser(username);
-  }
+  }*/
 
 }

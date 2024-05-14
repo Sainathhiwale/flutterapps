@@ -25,6 +25,7 @@ class DatabaseHelper {
           CREATE TABLE $_usersTable (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT NOT NULL UNIQUE,
+            useremail TEXT NOT NULL ,
             password TEXT NOT NULL
           )
         ''');
@@ -32,17 +33,23 @@ class DatabaseHelper {
     );
   }
 
-  Future<void> insertUser(User user) async {
+  Future<int?> insertUser(User user) async {
     final db = await database!;
-    await db?.insert(_usersTable, user.toMap());
+    final id = await db?.insert(_usersTable, user.toMap());
+    return id;
   }
 
-  Future<User?> getUser(String username) async {
+  Future<User?> getUser(String useremail,String password) async {
     final db = await database!;
+
+    // Combine username and password conditions using AND operator
+    final whereClause = 'useremail = ? AND password = ?';
+    final whereArgs = [useremail, password];
+
     final maps = await db?.query(
       _usersTable,
-      where: 'username = ?',
-      whereArgs: [username],
+      where: whereClause,
+      whereArgs: whereArgs,
     );
     if (maps!.isNotEmpty) {
       return User.fromMap(maps.first);
