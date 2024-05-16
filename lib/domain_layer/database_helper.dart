@@ -43,8 +43,8 @@ class DatabaseHelper {
     final db = await database!;
 
     // Combine username and password conditions using AND operator
-    final whereClause = 'useremail = ? AND password = ?';
-    final whereArgs = [useremail, password];
+     var whereClause = 'useremail = ? AND password = ?';
+     var whereArgs = [useremail, password];
 
     final maps = await db?.query(
       _usersTable,

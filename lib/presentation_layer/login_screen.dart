@@ -34,108 +34,160 @@ class LoginPageUI extends StatefulWidget {
 
 class _LoginPageUIState extends State<LoginPageUI> {
   late BuildContext context;
-  final FocusNode _passwordFocusNode = new FocusNode();
+  final GlobalKey<FormState> _formKey = GlobalKey();
 
-  final useremailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final FocusNode _focusNodePassword = FocusNode();
+  final TextEditingController _controlleruserEmail= TextEditingController();
+  final TextEditingController _controllerPassword = TextEditingController();
+
+  bool _obscurePassword = true;
   final loginRepository = LoginRepository(databaseHelper: DatabaseHelper());
 
 
   @override
   Widget build(BuildContext context) {
     this.context = context;
-
     return Scaffold(
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(FocusNode());
-        },
+      body: Form(
+        key: _formKey,
         child: SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.fromLTRB(30, 110.0, 30, 20),
-            child: Column(
-              children: <Widget>[
-                CircleAvatar(
-                  radius: 60.0,
-                  backgroundImage: NetworkImage(
-                      "https://avatars.githubusercontent.com/u/24228143?s=400&u=22907cb59a096c2d8d473626323bb210cd986b1e&v=4"),
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 50, 0, 0),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Email",
-                      style: TextStyle(
-                          fontSize: 15.0, fontWeight: FontWeight.bold),
-                    ),
-                    TextFormField(
-                      onFieldSubmitted: (String value) {
-                        FocusScope.of(context).requestFocus(_passwordFocusNode);
-                      },
-                      autofocus: true,
-                      controller: useremailController,
-                      keyboardType: TextInputType.emailAddress,
-                      textInputAction: TextInputAction.next,
-                      decoration:
-                      InputDecoration(labelText: 'Enter your email id'),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Password",
-                      style: TextStyle(
-                          fontSize: 15.0, fontWeight: FontWeight.bold),
-                    ),
-                    TextFormField(
-                        focusNode: _passwordFocusNode,
-                        controller: passwordController ,
-                        textInputAction: TextInputAction.done,
-                        decoration:
-                        InputDecoration(labelText: 'Enter your password'),
-                        keyboardType: TextInputType.text,
-                        obscureText: true),
-                  ],
-                ),
-                Padding(padding: const EdgeInsets.fromLTRB(0, 40, 0, 0)),
-                ButtonTheme(
-                  minWidth: double.maxFinite,
-                  height: 50.0,
-                  child: ElevatedButton(
-                      onPressed: _handleLogin,
-                      child: new Text(
-                        "Login",
-                        style:
-                        new TextStyle(color: Colors.white, fontSize: 20.0),
-                      )),
-                ),
-                Padding(padding: const EdgeInsets.fromLTRB(0, 20, 0, 0)),
-                Container(
-                  padding: EdgeInsets.all(20),
-                  child: ElevatedButton(
-                    onPressed: _handleRegister,
-                    child: new Text("Sign Up",
-                    style: TextStyle(color: Colors.white, fontSize: 20.0),),
+          padding: const EdgeInsets.all(30.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 150),
+              Text(
+                "Welcome back",
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Login to your account",
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 60),
+              TextFormField(
+                controller: _controlleruserEmail,
+                keyboardType: TextInputType.name,
+                decoration: InputDecoration(
+                  labelText: "Username",
+                  prefixIcon: const Icon(Icons.person_outline),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-              ],
-            ),
+                onEditingComplete: () => _focusNodePassword.requestFocus(),
+                validator: (String? value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter username.";
+                  }
+
+                  return null;
+                },
+              ),
+              const SizedBox(height: 10),
+              TextFormField(
+                controller: _controllerPassword,
+                focusNode: _focusNodePassword,
+                obscureText: _obscurePassword,
+                keyboardType: TextInputType.visiblePassword,
+                decoration: InputDecoration(
+                  labelText: "Password",
+                  prefixIcon: const Icon(Icons.password_outlined),
+                  suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                      icon: _obscurePassword
+                          ? const Icon(Icons.visibility_outlined)
+                          : const Icon(Icons.visibility_off_outlined)),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                validator: (String? value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter password.";
+                  }
+
+                  return null;
+                },
+              ),
+              const SizedBox(height: 60),
+              Column(
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    onPressed: () async {
+                      if (_formKey.currentState?.validate() ?? false) {
+                        final useremail = _controlleruserEmail.text;
+                        final password = _controllerPassword.text;
+                        final user = await loginRepository.login(useremail, password);
+                        if (user != null) {
+                          print(user.useremail);
+                          print(user.password);
+                          print(user.id);
+                          AppLog().d("login", 'user is found');
+                          // Login successful, navigate home screen
+                          Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Home()),
+                          );
+                        } else {
+                          AppLog().d("login", 'user is not found');
+                          Fluttertoast.showToast(msg: "UInvalid username or password.",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            backgroundColor: Colors.grey,
+                            textColor: Colors.white,
+                            fontSize: 16.0,
+                          );
+                        }
+                      }
+                    },
+                    child: const Text("Login"),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Don't have an account?"),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return const RegisterScreen();
+                              },
+                            ),
+                          );
+                        },
+                        child: const Text("Signup"),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
     );
   }
   Future<void> _handleLogin() async {
-    final useremail = useremailController.text;
-    final password = passwordController.text;
+    final useremail = _controlleruserEmail.text;
+    final password = _controllerPassword.text;
     final user = await loginRepository.login(useremail, password);
     if (user != null) {
       print(user.useremail);
@@ -167,5 +219,13 @@ class _LoginPageUIState extends State<LoginPageUI> {
       context,
       MaterialPageRoute(builder: (context) => RegisterScreen()),
     );
+  }
+  @override
+  void dispose() {
+    _focusNodePassword.dispose();
+    _controlleruserEmail.dispose();
+    _controllerPassword.dispose();
+    // TODO: implement dispose
+    super.dispose();
   }
 }

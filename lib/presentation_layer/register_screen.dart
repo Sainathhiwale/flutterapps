@@ -210,6 +210,16 @@ class _SignUpPageUIState extends State<SignUpPageUI> {
     MaterialPageRoute(builder: (context)=> LoginScreen()),
     );
   }
+
+  @override
+  void dispose() {
+    _focusNodeEmail.dispose();
+    _focusNodePassword.dispose();
+    _controllerUsername.dispose();
+    _controllerEmail.dispose();
+    _controllerPassword.dispose();
+    super.dispose();
+  }
 }
 
 

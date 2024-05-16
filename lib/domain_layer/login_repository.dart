@@ -10,10 +10,10 @@ class LoginRepository{
 
   Future<User?> login(String useremail, String password) async {
     final user = await databaseHelper.getUser(useremail, password);
-    if (user == null) {
-      throw LoginError('Invalid username or password.');  // Throw a custom exception
+    if (user!=null ) {
+      return user;
     }
-    return user;
+    return throw LoginError('Invalid username or password.');  // Throw a custom exception;
   }
 
   Future<int?> register(User user) async {
@@ -21,8 +21,5 @@ class LoginRepository{
     return userId;
 
   }
-  /*Future<User?>getUserDetails(String username, String email) async{
-    final user = await databaseHelper.getUser(username);
-  }*/
 
 }
