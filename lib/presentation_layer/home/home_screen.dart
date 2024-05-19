@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapps/models/user.dart';
 
 class Home extends StatelessWidget {
   const Home ({super.key});
-  static const appTitle = 'Drawer Demo';
+  static const appTitle = 'Home';
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -96,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
-              ), child: Text("Drawer Header"),
+              ), child: Text('sainath'),
             ),
             ListTile(
               title: const Text("Home"),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapps/Utils/app_log.dart';
 import 'package:flutterapps/domain_layer/database_helper.dart';
-import 'package:flutterapps/domain_layer/login_repository.dart';
+import 'package:flutterapps/domain_layer/repository/login_repository.dart';
+import 'package:flutterapps/domain_layer/repository/user_repository.dart';
+import 'package:flutterapps/domain_layer/shared_preferences_service.dart';
 import 'package:flutterapps/presentation_layer/home/home_screen.dart';
 import 'package:flutterapps/presentation_layer/register_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -39,10 +41,11 @@ class _LoginPageUIState extends State<LoginPageUI> {
   final FocusNode _focusNodePassword = FocusNode();
   final TextEditingController _controlleruserEmail= TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
+   String message ='';
 
   bool _obscurePassword = true;
   final loginRepository = LoginRepository(databaseHelper: DatabaseHelper());
-
+  final userRepository =  UserRepository(SharedPreferencesService());
 
   @override
   Widget build(BuildContext context) {
@@ -136,9 +139,12 @@ class _LoginPageUIState extends State<LoginPageUI> {
                         final password = _controllerPassword.text;
                         final user = await loginRepository.login(useremail, password);
                         if (user != null) {
+                          message = user.username;
                           print(user.useremail);
                           print(user.password);
                           print(user.id);
+                          await userRepository.saveUser(user);
+                          userRepository.setIsLoggedIn(true);
                           AppLog().d("login", 'user is found');
                           // Login successful, navigate home screen
                           Navigator.push(context,
@@ -185,33 +191,25 @@ class _LoginPageUIState extends State<LoginPageUI> {
       ),
     );
   }
-  Future<void> _handleLogin() async {
-    final useremail = _controlleruserEmail.text;
-    final password = _controllerPassword.text;
-    final user = await loginRepository.login(useremail, password);
-    if (user != null) {
-      print(user.useremail);
-      print(user.password);
-      print(user.id);
-      AppLog().d("login", 'user is found');
-      // Login successful, navigate home screen
-      Navigator.push(context,
-      MaterialPageRoute(builder: (context) => Home()),
-      );
-    } else {
-      AppLog().d("login", 'user is not found');
-      Fluttertoast.showToast(msg: "UInvalid username or password.",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.grey,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-    }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _checkLoginStatus(); // Check on initialization
 
   }
 
-
+  void _checkLoginStatus() async{
+    final isLoggedIn = await userRepository.getIsLoggedIn();
+    if (isLoggedIn) {
+      // Navigate to Home Screen if already logged in
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Home()),
+      );
+    }
+  }
 
   // navigate to sign up screen
   void _handleRegister() {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapps/domain_layer/database_helper.dart';
-import 'package:flutterapps/domain_layer/login_repository.dart';
+import 'package:flutterapps/domain_layer/repository/login_repository.dart';
 import 'package:flutterapps/models/user.dart';
 import 'package:flutterapps/presentation_layer/login_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
