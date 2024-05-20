@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapps/domain_layer/repository/user_repository.dart';
+import 'package:flutterapps/domain_layer/shared_preferences_service.dart';
 import 'package:flutterapps/models/user.dart';
+import 'package:flutterapps/presentation_layer/login_screen.dart';
 
 class Home extends StatelessWidget {
   const Home ({super.key});
@@ -26,26 +29,26 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex =0;
   static const TextStyle optionStyle =
   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-
+  final userRepository = UserRepository(SharedPreferencesService());
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
-      "Index 0 Home",
+      "Index 0 User Profile",
       style: optionStyle,
     ),
     Text(
-      "Index 1 Business ",
+       "Index 1 Logout",
       style: optionStyle,
     ),
     Text(
-      "Index 2 School",
+      "Index 2 Share",
       style: optionStyle,
     ),
     Text(
-      "Index 3 User Profile",
+      "Index 3 Graph",
       style: optionStyle,
     ),
     Text(
-      "Index 4 Share",
+      "Index 4 About",
       style: optionStyle,
     ),
   ];
@@ -54,29 +57,25 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _selectedIndex = index;
 
-      /*switch(index){
+      switch(index){
       case 0:
-        Navigator.push(context,
-          MaterialPageRoute(builder: (context) => DashboardScreen()),
-        );
+
         break;
       case 1:
+        userRepository.setIsLoggedIn(false);
+        userRepository.clearUser();
         Navigator.push(context,
-          MaterialPageRoute(builder: (context) => BusinessScreen()),
+          MaterialPageRoute(builder: (context) => LoginScreen()),
         );
         break;
       case 2:
-        Navigator.push(context,
-          MaterialPageRoute(builder: (context) => SchoolScreen()),
-        );
+
         break;
       case 3:
-        Navigator.push(context,
-          MaterialPageRoute(builder: (context) => ProfileScreen()),
-        );
+
         break;
 
-    }*/
+    }
     });
   }
 
@@ -100,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ), child: Text('sainath'),
             ),
             ListTile(
-              title: const Text("Home"),
+              title: const Text("Profile"),
               onTap: () {
                 _onItemTapped(0);
                /* Navigator.pop(context);
@@ -111,8 +110,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Divider(),
             ListTile(
-              title: const Text("Business"),
+              title: const Text("Logout"),
               onTap: () {
+               /* userRepository.clearUser();
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );*/
                 _onItemTapped(1);
               /*  Navigator.pop(context);
                 Navigator.push(context,
@@ -122,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Divider(),
             ListTile(
-              title: const Text("School"),
+              title: const Text("Share"),
               onTap: (){
                 _onItemTapped(2);
                /* Navigator.pop(context);
@@ -133,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Divider(),
             ListTile(
-              title: const Text("Profile"),
+              title: const Text("Graph"),
               onTap: (){
                 _onItemTapped(3);
                /* Navigator.pop(context);
@@ -144,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             Divider(),
             ListTile(
-              title: const Text("Share"),
+              title: const Text("About"),
               onTap: (){
                 _onItemTapped(4);
                /* Navigator.pop(context);

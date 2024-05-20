@@ -38,7 +38,7 @@ dependencies:
   sqflite: ^2.0.0+4  # Example version constraint
   path: ^1.8.0  # Example version constraint
   fluttertoast: ^8.2.5  # Replace with the latest version if needed
-  shared_preferences: ^2.0.15  # Or a compatible version
+  shared_preferences: ^2.2.3  # Or a compatible version
 dev_dependencies:
   flutter_test:
     sdk: flutter

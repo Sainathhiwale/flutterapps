@@ -195,13 +195,14 @@ class _LoginPageUIState extends State<LoginPageUI> {
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
     _checkLoginStatus(); // Check on initialization
+    super.initState();
 
   }
 
   void _checkLoginStatus() async{
     final isLoggedIn = await userRepository.getIsLoggedIn();
+
     if (isLoggedIn) {
       // Navigate to Home Screen if already logged in
       Navigator.pushReplacement(

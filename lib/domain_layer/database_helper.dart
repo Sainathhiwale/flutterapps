@@ -51,10 +51,9 @@ class DatabaseHelper {
       where: whereClause,
       whereArgs: whereArgs,
     );
-    if (maps!.isNotEmpty) {
-      return User.fromMap(maps.first);
+    if (maps?.isNotEmpty ?? false) { // Use null-aware operator for safety
+      return User.fromMap(maps!.first);
     }
-    return null;
   }
 }
 
