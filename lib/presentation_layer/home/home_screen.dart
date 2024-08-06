@@ -96,69 +96,67 @@ class _HomeScreenState extends State<HomeScreen> {
             const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
-              ), child: Text('sainath'),
+              ),
+              child: Text('sainath'),
             ),
             ListTile(
               title: const Text("Profile"),
               onTap: () {
                 _onItemTapped(0);
-               /* Navigator.pop(context);
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => DashboardScreen()),
-                );*/
               },
             ),
             Divider(),
             ListTile(
               title: const Text("Logout"),
               onTap: () {
-               /* userRepository.clearUser();
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                );*/
                 _onItemTapped(1);
-              /*  Navigator.pop(context);
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => BusinessScreen()),
-                );*/
               },
             ),
             Divider(),
             ListTile(
               title: const Text("Share"),
-              onTap: (){
+              onTap: () {
                 _onItemTapped(2);
-               /* Navigator.pop(context);
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => SchoolScreen()),
-                );*/
               },
             ),
             Divider(),
             ListTile(
               title: const Text("Graph"),
-              onTap: (){
+              onTap: () {
                 _onItemTapped(3);
-               /* Navigator.pop(context);
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProfileScreen()),
-                );*/
               },
             ),
             Divider(),
             ListTile(
               title: const Text("About"),
-              onTap: (){
+              onTap: () {
                 _onItemTapped(4);
-               /* Navigator.pop(context);
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ShareScreen()),
-                );*/
               },
             ),
             Divider(),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.share),
+            label: 'Share',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info),
+            label: 'About',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        backgroundColor: Colors.blue, // background color of the navigation bar
+        unselectedItemColor: Colors.black, // background color of the unselected icons
+        selectedItemColor: Colors.amber[800], // color of the selected icon
+        onTap: _onItemTapped,
       ),
     );
   }
