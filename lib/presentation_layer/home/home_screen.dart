@@ -153,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        backgroundColor: Colors.blue, // background color of the navigation bar
+        backgroundColor: Colors.white, // background color of the navigation bar
         unselectedItemColor: Colors.black, // background color of the unselected icons
         selectedItemColor: Colors.amber[800], // color of the selected icon
         onTap: _onItemTapped,
