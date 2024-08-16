@@ -33,7 +33,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   startTime() async {
     var _duration = new Duration(seconds: 3);
-    return new Timer(_duration, navigationPage);
+    return Timer(_duration, navigationPage);
   }
 
   void navigationPage() {
@@ -54,18 +54,18 @@ class _SplashScreenState extends State<SplashScreen> {
           child:  Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image(
-                image: AssetImage('assets/apple.png'),
+              /*const Image(
+                image: AssetImage('assets/images/apple.png'),
                 width: 200,
-                height: 200, ),
-              /* Image.asset(
-                'assets/logo.png',
+                height: 200, ),*/
+               Image.asset(
+                'assets/images/apple.png',
                 width: 200,
                 height: 200,
-              ),*/
+              ),
               Container(
-                padding: EdgeInsets.fromLTRB(0, 80, 0, 0),
-                child:  CircularProgressIndicator(
+                padding: const EdgeInsets.fromLTRB(0, 80, 0, 0),
+                child:  const CircularProgressIndicator(
                   backgroundColor: Colors.black,
                 ),
               ),

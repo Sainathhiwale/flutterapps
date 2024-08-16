@@ -123,7 +123,7 @@ class _LoginPageUIState extends State<LoginPageUI> {
                   return null;
                 },
               ),
-              const SizedBox(height: 60),
+              const SizedBox(height: 30),
               Column(
                 children: [
                   ElevatedButton(
